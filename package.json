@@ -1,0 +1,29 @@
+{
+  "name": "lizeth-md-links",
+  "version": "1.0.0",
+  "description": "Realiza la busqueda de links dentro de archivos md y verifica si estan rotos o no",
+  "main": "index.js",
+  "bin": {
+    "md-links": "index.js"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lizethsuk/lim20181-Track-FE-markdown-list.git"
+  },
+  "author": "lizeth <julia.sucasacai@gmail.com>()",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lizethsuk/lim20181-Track-FE-markdown-list/issues"
+  },
+  "homepage": "https://github.com/Lizethsuk/lim20181-Track-FE-markdown-list#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "showdown": "^1.8.6"
+  }
+}
