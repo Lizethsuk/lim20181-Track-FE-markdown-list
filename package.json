@@ -23,7 +23,11 @@
   },
   "homepage": "https://github.com/Lizethsuk/lim20181-Track-FE-markdown-list#readme",
   "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
     "fs": "0.0.1-security",
+    "meow": "^5.0.0",
+    "recursive-readdir": "^2.2.2",
     "showdown": "^1.8.6"
   }
 }
