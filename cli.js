@@ -2,6 +2,9 @@
 
 const program = require('commander');
 const mdlinks = require('./index.js');
+const findUp = require('find-up');
+const pathIsAbsolute = require('path-is-absolute');
+
 
 program
   .version('0.1.0')
@@ -16,13 +19,20 @@ const options = {
   stats: program.stats
 }
 
+
+
 // program.parse(process.argv);
+
+// const ruta= findUp(args)
 const dirOrFile = program.args[0];
+
+ 
+
 if (!dirOrFile) {
   console.log('ingrese ruta')
-  console.log('ruta,--validate')
-  console.log('ruta, --stats')
-  console.log('ruta, --validate--stats');
+  console.log('ruta--validate')
+  console.log('ruta --stats')
+  console.log('ruta --validate--stats');
 } else {
   mdlinks(dirOrFile, options)
     .then(arrlinks => {

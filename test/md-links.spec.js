@@ -23,3 +23,8 @@ test('deberia retornar un array', () => {
         }])
     })
 });
+
+test('deberia retornar un array', () => {
+    jest.setTimeout(12000)
+    return mdlinks('prueba', options).then((respuesta) => {
+        expect(respuesta).toEqual([{

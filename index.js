@@ -1,19 +1,17 @@
 
 
 const fs = require('fs');
-const recursive = require('recursive-readdir');
 const path = require('path');
 const fetch = require('node-fetch')
 const axios = require('axios');
-const marked = require('marked')
+const marked = require('marked');
+const arrayUnique = require('array-unique');
+const urix = require('urix');
 
 
-// function ignoreFunc(file, stats) {
-//   return stats.isDirectory() && path.basename(file) == "node_modules";
-// };
+
 
 const readFile = (arrFile) => {
-  // console.log(arrFile)
   const arrLinks = []
   arrFile.forEach(file => {
     const readFile = fs.readFileSync(file, 'utf8');
@@ -42,25 +40,41 @@ const funStatus = (arrTotal) => {
   return Promise.all(arrpromises)
     .then(response => {
       return arrTotal.map((link, statuslink) => {
-        link.status = response[statuslink].status
-        return link
+        link.status = `${response[statuslink].status}`
+        // console.log(link.status)
+        //   status: response.status,
+        //   validate: response.statusText
+   
+        // return link
+        return arrTotal
+
       })
-      // return 
     })
     .catch((error) => {
       return arrTotal.map(link => {
         if (link.status === undefined) {
           link.status = '404'
         }
-        return link
-      })
+        return arrTotal
 
+      })
     })
 
   // console.log(arrTotal);
   // console.log(arrTotal)
 
   // return arrTotal
+}
+
+const funcStats=(arrTotal)=>{
+  const total=arrTotal.length;
+  const arrOnlyLink = arrTotal.map(objLink => objLink.href);
+  const arrUnique=arrayUnique(arrOnlyLink);
+  const unique=arrUnique.length;
+  
+  const stringStat= `total:${total}\nunique:${unique}`;
+ 
+  return stringStat
 }
 //   const statusLinks=(arrLinkMd)=>{
 //     // console.log(arrLinkMd.href)
@@ -93,16 +107,6 @@ const recorrFileOrDir = (dirOrFile) => {
         arrFile = arrFile.concat(recorrFileOrDir(path.join(dirOrFile, arch)))
       }
     })
-    // recursive(dirOrFile, [ignoreFunc], (err, files) => {
-    // arrFile = files.filter(file => (path.extname(file) === '.md'));
-    // console.log(files)
-    // console.log(arrFile)
-    //  readFile(arrFile);
-    // statusLinks()
-    // readFile(arrFile[href]);
-    // return arrFile
-    // })
-
 
   }
   return arrFile
@@ -112,8 +116,9 @@ const recorrFileOrDir = (dirOrFile) => {
 const mdlinks = (dirOrFile, options) => {
   // console.log(options)
   return new Promise((resolve, reject) => {
-    const filesmd = recorrFileOrDir(dirOrFile);
+    const filesmd = recorrFileOrDir(path.resolve(dirOrFile));
     const arrTotal = readFile(filesmd);
+    const stasString= funcStats(arrTotal);
     if (options.stats && options.validate) {
       funStatus(arrTotal)
         .then(respuesta => resolve(respuesta))
@@ -121,7 +126,7 @@ const mdlinks = (dirOrFile, options) => {
       // .then(response => resolve(response))
       // resolve({ total: 'todos', unique: 'uno', broken: 'ninguno' })
     } else if (options.stats) {
-      resolve('')
+      resolve(stasString)
     } else {
       resolve(arrTotal);
     }
