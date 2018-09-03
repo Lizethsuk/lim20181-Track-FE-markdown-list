@@ -4,7 +4,7 @@
   "description": "Realiza la busqueda de links dentro de archivos md y verifica si estan rotos o no",
   "main": "index.js",
   "bin": {
-    "md-links": "index.js"
+    "md-links": "cli.js"
   },
   "directories": {
     "test": "test"
@@ -26,10 +26,10 @@
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2",
     "commander": "^2.17.1",
-    "fs": "0.0.1-security",
     "jest": "^23.5.0",
     "marked": "^0.5.0",
     "meow": "^5.0.0",
+    "node-fetch": "^2.2.0",
     "recursive-readdir": "^2.2.2",
     "showdown": "^1.8.6"
   }
