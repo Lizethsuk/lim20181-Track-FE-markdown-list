@@ -30,19 +30,14 @@ const dirOrFile = program.args[0];
 
 if (!dirOrFile) {
   console.log('ingrese ruta')
-  console.log('ruta--validate')
+  console.log('ruta --validate')
   console.log('ruta --stats')
   console.log('ruta --validate--stats');
 } else {
   mdlinks(dirOrFile, options)
     .then(arrlinks => {
-      // if(option.stats){
+      // if()
       console.log(arrlinks);
-      // }
-
     })
 }
 
-// mdlinks(dirOrFile)=>{
-//   return colors.red(txt); //display the help text in red on the console
-// }
