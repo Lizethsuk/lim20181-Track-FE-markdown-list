@@ -2,8 +2,6 @@
 
 const program = require('commander');
 const mdlinks = require('./index.js');
-const findUp = require('find-up');
-const pathIsAbsolute = require('path-is-absolute');
 
 
 program
@@ -26,18 +24,29 @@ const options = {
 // const ruta= findUp(args)
 const dirOrFile = program.args[0];
 
- 
+
 
 if (!dirOrFile) {
   console.log('ingrese ruta')
-  console.log('ruta --validate')
-  console.log('ruta --stats')
-  console.log('ruta --validate--stats');
+  console.log('ruta -v --validate')
+  console.log('ruta -s --stats')
+  console.log('ruta -s -v --validate--stats');
 } else {
   mdlinks(dirOrFile, options)
     .then(arrlinks => {
-      // if()
-      console.log(arrlinks);
+      if (options.validate && options.stats) {
+        console.log(`total:${arrlinks.total}\nunique:${arrlinks.unique}\nbroken:${arrlinks.broken}`)
+      } else if (options.validate) {
+        arrlinks.forEach(obj => {
+          console.log(`${obj.file}   ${obj.href}   ${obj.statusText}   ${obj.status}   ${obj.text}`)
+        });
+      } else if (options.stats) {
+        console.log(`total:${arrlinks[0].total}\nunique${arrlinks[0].unique}`)
+      } else {
+        arrlinks.forEach(obj => {
+          console.log(`${obj.file}   ${obj.href}   ${obj.text}`)
+        })
+
+      }
     })
 }
-

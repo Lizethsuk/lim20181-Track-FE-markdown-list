@@ -3,7 +3,6 @@ const path = require('path');
 const fetch = require('node-fetch');
 const marked = require('marked');
 const arrayUnique = require('array-unique');
-const urix = require('urix');
 
 const readFile = (arrFile) => {
   const arrLinks = []
@@ -79,7 +78,6 @@ const mdlinks = (dirOrFile, options) => {
     if (options.validate && options.stats) {
       const resumen=stasArr[0]
       resumen.broken=0
-      // promisevalidate es una promesa
       promiseValidate.then((arr) => {
         arr.forEach(obj=>{
           if(obj.status===404){
@@ -91,7 +89,7 @@ const mdlinks = (dirOrFile, options) => {
     } else if (options.stats) {
       resolve(stasArr);
     } else if (options.validate) {
-      resolve(arrValidate)
+      resolve(promiseValidate);
     }
     else {
       resolve(arrTotal);
