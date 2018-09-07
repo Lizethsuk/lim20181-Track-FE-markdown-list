@@ -17,5 +17,5 @@ $ md-links ./some/example.md
 ### Otros recursos
 
 
-- [learnyounode](https://github.com/workshopper/learnyounode)
+- [learnyounode](https://github.com/workshopper/learnyounodem)
 

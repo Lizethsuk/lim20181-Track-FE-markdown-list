@@ -28,7 +28,7 @@ const funValidate = (arrTotal) => {
   const arrpromises = arrLink.map(link => fetch(link))
   return Promise.all(arrpromises)
     .then((response) => {
-    arrTotal.map((objLink, sts) => {
+      arrTotal.map((objLink, sts) => {
         objLink.status = response[sts].status;
         objLink.statusText = response[sts].statusText;
       })
@@ -40,14 +40,13 @@ const funcStats = (arrTotal) => {
   const total = arrTotal.length;
   const arrOnlyLink = arrTotal.map(objLink => objLink.href);
   const arrUnique = arrayUnique(arrOnlyLink);
-  
+
   const unique = arrUnique.length;
-  const objet={
-    "total":total,
-    "unique":unique
+  const objet = {
+    "total": total,
+    "unique": unique
   }
-  const arrStat = [objet];
-  return arrStat
+  return objet
 }
 
 const recorrFileOrDir = (dirOrFile) => {
@@ -57,10 +56,10 @@ const recorrFileOrDir = (dirOrFile) => {
     if (path.extname(dirOrFile) === '.md') {
       arrFile.push(dirOrFile)
     }
-  } else if (stats.isDirectory()) {
+  } else {
     const arrArch = fs.readdirSync(dirOrFile)
     arrArch.forEach(arch => {
-      if (arch != "node_modules") {
+      if (arch !== "node_modules") {
         arrFile = arrFile.concat(recorrFileOrDir(path.join(dirOrFile, arch)))
       }
     })
@@ -73,21 +72,20 @@ const mdlinks = (dirOrFile, options) => {
   return new Promise((resolve, reject) => {
     const filesmd = recorrFileOrDir(path.resolve(dirOrFile));
     const arrTotal = readFile(filesmd);
-    const stasArr = funcStats(arrTotal);
+    const statsObj = funcStats(arrTotal);
     const promiseValidate = funValidate(arrTotal);
     if (options.validate && options.stats) {
-      const resumen=stasArr[0]
-      resumen.broken=0
+      statsObj.broken = 0
       promiseValidate.then((arr) => {
-        arr.forEach(obj=>{
-          if(obj.status===404){
-            resumen.broken+=1
+        arr.forEach(obj => {
+          if (obj.status === 404) {
+            statsObj.broken += 1
           }
         })
-        resolve(resumen)
+        resolve(statsObj)
       })
     } else if (options.stats) {
-      resolve(stasArr);
+      resolve(statsObj);
     } else if (options.validate) {
       resolve(promiseValidate);
     }
