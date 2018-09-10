@@ -41,7 +41,7 @@ if (!dirOrFile) {
           console.log(`${obj.file}   ${obj.href}   ${obj.statusText}   ${obj.status}   ${obj.text}`)
         });
       } else if (options.stats) {
-        console.log(`total:${arrlinks[0].total}\nunique${arrlinks[0].unique}`)
+        console.log(`total:${arrlinks.total}\nunique${arrlinks.unique}`)
       } else {
         arrlinks.forEach(obj => {
           console.log(`${obj.file}   ${obj.href}   ${obj.text}`)

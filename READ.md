@@ -15,20 +15,31 @@ algunas estadísticas.
 ## Install
 
 
-$ npm install --save lizeth-md-link
+$ npm install --save Lizethsuk/lim20181-Track-FE-markdown-list
 
 ```js
 // example.js
 const mdlinks = require('lizeth-md-link');
 
 mdlinks('README.md').then(response => {
-	console.log(response);
+	console.og(response)
 });
+//C:\Users\Documents\README.md  https://es.wikipedia.org/wikipedia/Markdown  Markdown 
 
 mdlinks('README.md' --validate).then(response => {
-	console.log(response);
+	console.log(response)
 });
+//C:\Users\Documents\README.md  https://es.wikipedia.org/wikipedia/Markdown  200  OK   Markdown 
+
 mdlinks('README.md' --stats).then(response => {
-    
+	console.log(response)
 })
+// total: 1 unique: 1
+
+mdlinks('README.md' --stats --validate).then(response => {
+	console.log(response)
+})
+// total: 1 unique: 1 broken: 0
+
+
 ```
